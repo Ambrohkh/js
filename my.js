@@ -1,53 +1,67 @@
-/*
-function task2(metres){
-    const kilometres = metres / 1000;
-    return `${kilometres.toFixed(2)} км.`;
+'use strict';
+
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+        numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    }
 }
 
-function conwert(n) {
-    const grn = n / 28;
-    return `${grn.toFixed(2)} USD.`;
-}//бля нарешті я зрозумів)
+start();
 
-function name(a,b,c) {
-    return Math.min(a,b,c);
-}
+const personalMovieDB = {
+    count: numberOfFilms,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false
+};
 
 
-       function name(str) {
-           arr = str.split('');
-           arr.reverse();
-           return `${arr=arr.join('')}`;
-       }
-
-       function staircase(n) {
-        for (let i = 0; i < n; i++) {
-            let step = ' ';
-      
-         for (let j = 0; j < n; j++) {
-            if (j <= i) {
-              step += '#'
-           } else {
-              step += ' ';
-           }
-         }
-         console.log(step)
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) {
+        const a = prompt('Один из последних просмотренных фильмов?', ''),
+              b = prompt('На сколько оцените его?', '');
+    
+        if (a != null && b != null && a != '' && b != '' && a.length < 50) {
+            personalMovieDB.movies[a] = b;
+            console.log('done');
+        } else {
+            console.log('error');
+            i--;
         }
-      }
+    }
+}
 
-      function cursoreCheck(str) {
-         const check = str.toLowerCase();
-         if (check.indexOf('iron') != -1 
-         || check.indexOf('cursor') != -1 
-         || check.indexOf('ostap') != -1) {   
-        return true;
-         } 
-        return false;
-      }
-      function upperCase(str) {
-         const upper = str.toUpperCase();
-          return upper;
-      }
-      */// УРОК 7
-    // УРОК 8
-    let frferf =
+rememberMyFilms();
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+        console.log("Вы классический зритель");
+    } else if (personalMovieDB.count >= 30) {
+        console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
+}
+
+detectPersonalLevel();
+
+function showMyDB (privat) {
+    if (!privat) {
+        console.log(personalMovieDB);
+    }
+}
+showMyDB();
+
+function writeYourGenres (){
+    for (let i = 1; i < 3; i++) {
+       personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`);
+    }
+}
+writeYourGenres();
